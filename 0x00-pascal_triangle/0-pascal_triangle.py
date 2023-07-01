@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 """
 This module contains a function that implements
 the pascal's triangle using 2D lists.
