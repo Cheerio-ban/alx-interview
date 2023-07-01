@@ -25,8 +25,8 @@ def pascal_triangle(n):
         return []
 
     # Initial pascal's triangle array
-    triangle = [[1], [1, 1]]
-    count = 2
+    triangle = [[1]]
+    count = 1
 
     # Loop to the number of element needed by the User.
     while count < n:
