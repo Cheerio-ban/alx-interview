@@ -1,58 +1,55 @@
 #!/usr/bin/python3
-""" Module to print status code """
+
+"""
+Handles logs from the file 0-generator.py
+"""
+
+import fileinput
 import sys
 
 
-class Magic:
-    """Class to generates instances with dict and size"""
+def print_output(passed_dict, file_size):
+    """Handles printing the output in the required format."""
+    print("File size: {}".format(file_size))
+    passed_dict = dict(sorted(passed_dict.items()))
 
-    def __init__(self):
-        """Init method"""
-        self.dic = {}
-        self.size = 0
-
-    def init_dic(self):
-        """Initialize dict"""
-        self.dic["200"] = 0
-        self.dic["301"] = 0
-        self.dic["400"] = 0
-        self.dic["401"] = 0
-        self.dic["403"] = 0
-        self.dic["404"] = 0
-        self.dic["405"] = 0
-        self.dic["500"] = 0
-
-    def add_status_code(self, status):
-        """add repeated number to the status code"""
-        if status in self.dic:
-            self.dic[status] += 1
-
-    def print_info(self, sig=0, frame=0):
-        """print status code"""
-        print("File size: {:d}".format(self.size))
-        for key in sorted(self.dic.keys()):
-            if self.dic[key] != 0:
-                print("{}: {:d}".format(key, self.dic[key]))
+    for key, value in passed_dict.items():
+        print("{}: {}".format(key, value))
 
 
-if __name__ == "__main__":
-    magic = Magic()
-    magic.init_dic()
-    nlines = 0
-
+def get_log():
+    """Handles getting information from the log and is the main program"""
+    file_size = 0
+    status_code = {}
     try:
-        for line in sys.stdin:
-            if nlines % 10 == 0 and nlines != 0:
-                magic.print_info()
-
+        counter = 0
+        for lines in fileinput.input():
             try:
-                list_line = [x for x in line.split(" ") if x.strip()]
-                magic.add_status_code(list_line[-2])
-                magic.size += int(list_line[-1].strip("\n"))
+                lines = lines.rstrip("\n")
+                new_list = lines.split()
+
+                if len(new_list) != 9:
+                    continue
+
+                if not new_list[-1].isdigit() or not new_list[-2].isdigit():
+                    continue
+
+                file_size += int(new_list[-1])
+                status_code[new_list[-2]] = status_code.get(
+                                                new_list[-2], 0) + 1
+
+                counter += 1
+
+                if counter % 10 == 0:
+                    print_output(status_code, file_size)
+
             except Exception:
                 pass
-            nlines += 1
-    except KeyboardInterrupt:
-        magic.print_info()
-        raise
-    magic.print_info()
+
+
+    finally:
+        print_output(status_code, file_size)
+
+
+if __name__ == '__main__':
+    get_log()
