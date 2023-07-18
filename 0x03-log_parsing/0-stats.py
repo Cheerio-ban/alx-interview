@@ -50,7 +50,6 @@ def get_log():
             except Exception:
                 pass
 
-
     finally:
         print_output(status_code, file_size)
 
