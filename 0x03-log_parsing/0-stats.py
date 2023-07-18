@@ -11,10 +11,14 @@ import sys
 def print_output(passed_dict, file_size):
     """Handles printing the output in the required format."""
     print("File size: {}".format(file_size))
-    passed_dict = dict(sorted(passed_dict.items()))
+    status = dict(sorted(status.items()))
+    for elem in status:
+        print("{}: {}".format(elem, status[elem]))
+    # print("File size: {}".format(file_size))
+    # passed_dict = dict(sorted(passed_dict.items()))
 
-    for key, value in passed_dict.items():
-        print("{}: {}".format(key, value))
+    # for key, value in passed_dict.items():
+    #     print("{}: {}".format(key, value))
 
 
 def get_log():
