@@ -21,6 +21,7 @@ def get_log():
     """Handles getting information from the log and is the main program"""
     file_size = 0
     status_code = {}
+    allow = [200, 301, 400, 401, 403, 404, 405, 500]
     try:
         counter = 0
         for lines in fileinput.input():
@@ -29,14 +30,17 @@ def get_log():
                 new_list = lines.split()
 
                 if len(new_list) != 9:
-                    continue
+                    raise Exception("Void")
 
                 if not new_list[-1].isdigit() or not new_list[-2].isdigit():
-                    continue
+                    raise Exception("Void")
+
+                if new_list[-2] not in allow:
+                    raise Exception("Void")
 
                 file_size += int(new_list[-1])
                 status_code[new_list[-2]] = status_code.get(
-                                                new_list[-2], 0) + 1
+                                            new_list[-2], 0) + 1
 
                 counter += 1
 
