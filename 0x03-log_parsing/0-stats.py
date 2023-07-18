@@ -24,23 +24,28 @@ def get_log():
     try:
         counter = 0
         for lines in fileinput.input():
-            lines = lines.rstrip("\n")
-            new_list = lines.split()
+            try:
+                lines = lines.rstrip("\n")
+                new_list = lines.split()
 
-            if len(new_list) != 9:
-                continue
+                if len(new_list) != 9:
+                    continue
 
-            if not new_list[-1].isdigit() or not new_list[-2].isdigit():
-                continue
+                if not new_list[-1].isdigit() or not new_list[-2].isdigit():
+                    continue
 
-            file_size += int(new_list[-1])
-            status_code[int(new_list[-2])] = status_code.get(
-                                            int(new_list[-2]), 0) + 1
+                file_size += int(new_list[-1])
+                status_code[int(new_list[-2])] = status_code.get(
+                                                int(new_list[-2]), 0) + 1
 
-            counter += 1
+                counter += 1
 
-            if counter % 10 == 0:
-                print_output(status_code, file_size)
+                if counter % 10 == 0:
+                    print_output(status_code, file_size)
+
+            except Exception:
+                pass
+
 
     except KeyboardInterrupt:
         print_output(status_code, file_size)
