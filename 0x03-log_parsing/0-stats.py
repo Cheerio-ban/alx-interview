@@ -46,7 +46,6 @@ def get_log():
             except Exception:
                 pass
 
-
     except KeyboardInterrupt:
         print_output(status_code, file_size)
         sys.exit(1)
