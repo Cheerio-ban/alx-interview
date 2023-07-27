@@ -49,7 +49,7 @@ def get_log():
 
     except (KeyboardInterrupt, Exception) as e:
         print_output(status_code, file_size)
-        print("Exception: {}".format(e))
+        sys.stderr.write("[stderr]: {}\n".format(e))
         sys.exit(1)
 
     print_output(status_code, file_size)
