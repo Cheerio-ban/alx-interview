@@ -21,6 +21,7 @@ def get_log():
     """Handles getting information from the log and is the main program"""
     file_size = 0
     status_code = {}
+    track_state = False
     try:
         counter = 0
         for lines in fileinput.input():
@@ -32,7 +33,7 @@ def get_log():
                     continue
 
                 if not new_list[-1].isdigit() or not new_list[-2].isdigit():
-                    raise ValueError("Not a digit")
+                    track_state = True
                     continue
 
                 file_size += int(new_list[-1])
@@ -46,6 +47,9 @@ def get_log():
 
             except Exception as e:
                 raise ValueError(e)
+
+        if track_state is True:
+            raise ValueError("Not a digit")
 
     except (KeyboardInterrupt, Exception) as e:
         print_output(status_code, file_size)
