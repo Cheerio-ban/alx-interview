@@ -51,6 +51,8 @@ def get_log():
         print_output(status_code, file_size)
         sys.exit(1)
 
+    print_output(status_code, file_size)
+
 
 if __name__ == '__main__':
     get_log()
