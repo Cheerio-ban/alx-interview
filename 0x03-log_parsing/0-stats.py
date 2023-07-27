@@ -32,6 +32,7 @@ def get_log():
                     continue
 
                 if not new_list[-1].isdigit() or not new_list[-2].isdigit():
+                    raise ValueError("Not a digit")
                     continue
 
                 file_size += int(new_list[-1])
@@ -43,11 +44,12 @@ def get_log():
                 if counter % 10 == 0:
                     print_output(status_code, file_size)
 
-            except Exception:
-                pass
+            except Exception as e:
+                raise ValueError(e)
 
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, Exception) as e:
         print_output(status_code, file_size)
+        print("Exception: {}".format(e))
         sys.exit(1)
 
     print_output(status_code, file_size)
