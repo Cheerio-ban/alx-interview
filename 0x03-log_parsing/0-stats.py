@@ -49,7 +49,7 @@ def get_log():
 
     except KeyboardInterrupt:
         print_output(status_code, file_size)
-        # sys.exit(1)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
