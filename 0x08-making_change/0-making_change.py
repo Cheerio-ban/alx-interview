@@ -2,6 +2,7 @@
 
 """ Greedy Algorithm """
 
+
 def makeChange(coins, total):
     """ Making change problem. """
     if total <= 0:
@@ -12,4 +13,4 @@ def makeChange(coins, total):
         while coin <= total:
             total -= coin
             count += 1
-    return count if (count > 0  and total == 0) else -1
+    return count if (count > 0 and total == 0) else -1
