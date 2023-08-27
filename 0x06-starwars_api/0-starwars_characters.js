@@ -15,7 +15,7 @@ const requestPromise = (url) => {
 };
 
 const printCharacters = async (filmId) => {
- try {
+  try {
     const film = await requestPromise(`https://swapi-api.alx-tools.com/api/films/${filmId}`);
     const charactersUrl = await film.characters;
     for (const url of charactersUrl) {
